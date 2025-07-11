@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MedikoData;
 using MedikoData.Entities;
 using MedikoServices;
 using Microsoft.AspNetCore.Identity;
-using NuGet.Protocol.Plugins;
 using MedikoWeb.Models;
-using System.Xml.Linq;
 
 namespace MedikoWeb.Controllers
 {
@@ -44,7 +37,6 @@ namespace MedikoWeb.Controllers
             string userId = _userManager.GetUserAsync(User).Result.Id;
 
             var logbooks = await _logbookService.GetLogBooksForUser(userId);
-            //var usersLogbooks = await _logbookService.GetUsersLogbooksAsync(userId);
 
             return logbooks != null ? View(logbooks) : View(new List<LogBook>());
 
@@ -84,7 +76,7 @@ namespace MedikoWeb.Controllers
                     Precision = logBookVM.Precision
                 };
 
-               
+
 
                 logbook.Creator = User.IsInRole("Admin") || User.IsInRole("Editor") ?
                     null : _userManager.GetUserAsync(User).Result;
@@ -188,26 +180,10 @@ namespace MedikoWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //if (_context.LogBooks == null)
-            //{
-            //    return Problem("Entity set 'MedikoDbContext.logBooks'  is null.");
-            //}
-            //var logBook = await _context.LogBooks.FindAsync(id);
-            //if (logBook != null)
-            //{
-            //    _context.LogBooks.Remove(logBook);
-            //}
-
-            //await _context.SaveChangesAsync();
-
             await _logbookService.DeleteLogBook(id);
 
             return RedirectToAction("Options", "User");
         }
 
-        //private bool LogBookExists(int id)
-        //{
-        //    return (_context.LogBooks?.Any(e => e.LogBookId == id)).GetValueOrDefault();
-        //}
     }
 }

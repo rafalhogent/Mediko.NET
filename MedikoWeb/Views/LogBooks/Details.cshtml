@@ -5,7 +5,6 @@
 }
 
 <h3>
-    @*<a asp-action="Edit" asp-route-id="@Model?.LogBookId">Edit</a> |*@
     <a class="btn btn-sm btn-secondary mb-1 me-2" asp-action="Options" asp-controller="User">
         <i class="bi bi-arrow-left-square icon"></i>Terug
     </a>
@@ -60,16 +59,7 @@
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Precision)
-        </dt>@*
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Precision)
-        </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.IconUrl)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.IconUrl)
-        </dd>*@
     </dl>
 </div>
 

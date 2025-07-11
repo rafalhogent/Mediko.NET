@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MedikoData.Entities;
 
 namespace MedikoData.Repos
@@ -41,18 +36,17 @@ namespace MedikoData.Repos
         public async Task<Log?> GetLogByIdAsync(int logId)
         {
             return await _context.Logs.Where(x => x.LogId == logId).Include(x => x.LogBook).FirstOrDefaultAsync();
-            //return await _context.Logs.FindAsync(logId);
         }
 
         public async Task<IEnumerable<Log>> GetUserLogsByLogbookIdAsync(string userId, int logbookId)
         {
             return await _context.Logs
-                .Where(x => x.Creator.Id == userId && x.LogBook.LogBookId == logbookId).OrderByDescending(x=>x.LogTime).ToListAsync();
+                .Where(x => x.Creator.Id == userId && x.LogBook.LogBookId == logbookId).OrderByDescending(x => x.LogTime).ToListAsync();
         }
 
         public async Task<bool> RemoveLogAsync(Log log)
         {
-           var result = _context.Logs.Remove(log);
+            var result = _context.Logs.Remove(log);
             return await _context.SaveChangesAsync() > 0 ? true : false;
         }
 

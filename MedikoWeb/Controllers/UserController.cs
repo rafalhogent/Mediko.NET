@@ -1,10 +1,8 @@
 ﻿using MedikoData.Entities;
-using MedikoData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MedikoWeb.Models;
 using MedikoServices;
-using System.Linq;
 
 namespace MedikoWeb.Controllers
 {
@@ -170,7 +168,6 @@ namespace MedikoWeb.Controllers
                 }
                 else
                 {
-                    //userVM.UserName = userVM.UserName.Trim().Replace(' ', '_');
                     ModelState.AddModelError("RegFailed", "Registartie mislukt, controleer gegevens");
                     return View("Register", userVM);
                 }

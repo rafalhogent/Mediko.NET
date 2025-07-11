@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MedikoData.Entities;
 
@@ -9,11 +8,6 @@ namespace MedikoData.Configurations
     {
         public void Configure(EntityTypeBuilder<LogBook> builder)
         {
-
-            //builder.HasOne(x => x.Creator).WithMany(c => c.CustomLogbooks);
-            //builder.HasMany(x => x.Logs).WithOne(l => l.LogBook);
-
-
 
             //* - - - - - Seeding - - - - - - -
             builder.HasData(

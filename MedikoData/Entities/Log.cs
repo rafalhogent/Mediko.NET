@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace MedikoData.Entities
 {
     public class Log

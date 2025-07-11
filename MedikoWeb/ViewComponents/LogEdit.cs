@@ -23,19 +23,6 @@ namespace MedikoWeb.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            //if (_signinManager.IsSignedIn((System.Security.Claims.ClaimsPrincipal)User))
-            //{
-            //    DataMenuViewModel viewModel = new DataMenuViewModel();
-            //    var user = _userManager.GetUserAsync((System.Security.Claims.ClaimsPrincipal)User).Result;
-            //    var choosenLogbooks = _logbookService.GetChoosenLogbooks(user.Id).Result;
-
-            //    viewModel.ChoosenLogbooks = choosenLogbooks
-            //        .Select(x => new LogBookViewModel { Id = x.LogBookId, Name = x.Name }).ToList();
-
-            //    return View("NavbarDataMenu", viewModel);
-            //}
-
-            
             return View("LogEdit");
         }
     }

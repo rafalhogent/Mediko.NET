@@ -34,8 +34,7 @@ namespace MedikoWeb.ViewComponents
 
                 return View("NavbarDataMenu", viewModel);
             }
-
-
+            
             else return View();
         }
     }

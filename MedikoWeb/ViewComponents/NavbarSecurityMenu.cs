@@ -17,9 +17,6 @@ namespace MedikoWeb.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            //var isUserSignedIn = _signinManager.IsSignedIn((System.Security.Claims.ClaimsPrincipal)User);
-            //var userName = User?.Identity?.Name;
-            //var user = _signinManager.UserManager.GetUserAsync(User.);
 
             if (User.IsInRole("Admin"))
             {

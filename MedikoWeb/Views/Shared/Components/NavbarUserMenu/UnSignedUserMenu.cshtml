@@ -1,23 +1,19 @@
-﻿@*<ul class="navbar-nav ms-auto mb-2 mb-md-0">*@
-
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-           aria-expanded="false">
-            <svg class="bi" fill="currentColor">
-                <use xlink:href="../icons/bootstrap-icons.svg#person-circle"></use>
-            </svg>
-            @*<img class="avatar" src="~/icons/person-circle.svg" />*@
-            <span>Gebruiker</span>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-controller="User" asp-action="LogIn">Aanmelden</a></li>
-            <li><a class="dropdown-item" asp-controller="User" asp-action="Register">Registratie</a></li>
-            <li> <hr class="dropdown-divider"> </li>
-            <li><a class="dropdown-item" asp-action="Demo" asp-controller="User">Demo bekijken</a></li>
-            @*<li><a class="dropdown-item" href="#">Kies Taal</a></li>*@
-        </ul>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-action="Info" asp-controller="Home">Info</a>
-    </li>
-@*</ul>*@
+﻿<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <svg class="bi" fill="currentColor">
+            <use xlink:href="../icons/bootstrap-icons.svg#person-circle"></use>
+        </svg>
+        <span>Gebruiker</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" asp-controller="User" asp-action="LogIn">Aanmelden</a></li>
+        <li><a class="dropdown-item" asp-controller="User" asp-action="Register">Registratie</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" asp-action="Demo" asp-controller="User">Demo bekijken</a></li>
+    </ul>
+</li>
+<li class="nav-item">
+    <a class="nav-link" asp-action="Info" asp-controller="Home">Info</a>
+</li>

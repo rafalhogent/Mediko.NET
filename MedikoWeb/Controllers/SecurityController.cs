@@ -15,7 +15,6 @@ namespace MedikoWeb.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signinManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        //private readonly MedikoDbContext _medikoDbContext;
 
         public SecurityController(UserManager<AppUser> userManager,
                     SignInManager<AppUser> signInManager,
@@ -33,7 +32,6 @@ namespace MedikoWeb.Controllers
             return View(allUsers);
         }
 
-        //[HttpGet]
         public async Task<IActionResult> UserDetail(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

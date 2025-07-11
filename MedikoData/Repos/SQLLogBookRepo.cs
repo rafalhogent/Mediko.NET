@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MedikoData.Entities;
+﻿using MedikoData.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedikoData.Repos
@@ -36,7 +31,7 @@ namespace MedikoData.Repos
         {
             var user = await _context.Users.FindAsync(id);
             if (user != null)
-            return await _context.LogBooks.Where(x => x.UsersWhoChoosen.Contains(user)).ToListAsync();
+                return await _context.LogBooks.Where(x => x.UsersWhoChoosen.Contains(user)).ToListAsync();
             return Enumerable.Empty<LogBook>();
         }
 
@@ -79,7 +74,7 @@ namespace MedikoData.Repos
             var user = await _context.Users.FindAsync(userId);
 
             var logbook = await _context.LogBooks
-                                        .Include(x=> x.UsersWhoChoosen)
+                                        .Include(x => x.UsersWhoChoosen)
                                         .Where(x => x.LogBookId == logbookId).FirstOrDefaultAsync();
 
             if (user != null && logbook != null && logbook.UsersWhoChoosen.Contains(user))
@@ -87,7 +82,7 @@ namespace MedikoData.Repos
                 logbook.UsersWhoChoosen.Remove(user);
                 await _context.SaveChangesAsync();
             }
-                
+
         }
     }
 }

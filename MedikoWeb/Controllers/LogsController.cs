@@ -30,11 +30,10 @@ namespace MedikoWeb.Controllers
         {
             if (User?.Identity?.IsAuthenticated != true)
                 return RedirectToAction("Login", "User");
-            //return View();
+
             return RedirectToAction("Dashboard", "User");
         }
 
-        //[Route("{controller=Logs}/{action=Diary}/{logbookid?}")]
         public async Task<IActionResult> Diary(int logbookId)
         {
             if (logbookId < 1) return RedirectToAction("Dashboard", "User");
@@ -70,7 +69,7 @@ namespace MedikoWeb.Controllers
             var logBook = await _logbookService.GetLogBookById(diaryVM.NewLog.LogbookId);
             if (logBook == null)
             {
-                ErrorViewModel error = new ErrorViewModel { Message = "Logboek niet gevonden" } ;
+                ErrorViewModel error = new ErrorViewModel { Message = "Logboek niet gevonden" };
                 return View("Error", error);
             }
 
@@ -88,7 +87,7 @@ namespace MedikoWeb.Controllers
             newLog.Value2 = diaryVM.NewLog.Value2;
             newLog.Value3 = diaryVM.NewLog.Value3;
             newLog.Comment = diaryVM.NewLog.Comment;
-            
+
             newLog.LogBook = logBook;
 
             var result = await _logsService.AddNewLog(
@@ -105,7 +104,7 @@ namespace MedikoWeb.Controllers
                 return View("Error", error);
             }
 
-            return RedirectToAction(nameof(Diary), new { logbookId = logBook.LogBookId});
+            return RedirectToAction(nameof(Diary), new { logbookId = logBook.LogBookId });
         }
 
 
@@ -117,21 +116,19 @@ namespace MedikoWeb.Controllers
                 var result = await _logsService.RemoveLogAsync(log);
                 if (result) _message = $"Log met id : {logid} verwijderd";
                 else _message = $"Verwijderen Log met id : {logid} mislukt";
-                return RedirectToAction(nameof(Diary), new {logbookId = log.LogBook.LogBookId});
+                return RedirectToAction(nameof(Diary), new { logbookId = log.LogBook.LogBookId });
             }
             _message = $"Log met id : {logid} niet gevonden";
             return RedirectToAction(nameof(Diary), new { logbookId = 1 });
-            //return RedirectToAction(nameof(Index));
-
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateLog(DiaryViewModel diaryVM)
         {
-            if(diaryVM.NewLog.logId == null || diaryVM.NewLog.logId == 0)
+            if (diaryVM.NewLog.logId == null || diaryVM.NewLog.logId == 0)
             {
                 _message = $"Log 0 nniet gevonden";
-                return RedirectToAction(nameof(Diary), new { logbookId = diaryVM.NewLog.LogbookId});
+                return RedirectToAction(nameof(Diary), new { logbookId = diaryVM.NewLog.LogbookId });
             }
             var logToUpdate = await _logsService.GetLogByIdAsync(diaryVM.NewLog.logId.Value);
             if (logToUpdate != null)
@@ -144,7 +141,7 @@ namespace MedikoWeb.Controllers
 
                 if (await _logsService.UpdateLogAsync(logToUpdate)) _message = $"Log {logToUpdate.LogId} gewijzigd";
                 else _message = $"Log {logToUpdate.LogId} update failed";
-                return RedirectToAction(nameof(Diary), new { logbookId = diaryVM.NewLog.LogbookId});
+                return RedirectToAction(nameof(Diary), new { logbookId = diaryVM.NewLog.LogbookId });
             }
             _message = $"Log met id : {diaryVM.NewLog.logId} niet gevonden";
             return RedirectToAction(nameof(Index));
