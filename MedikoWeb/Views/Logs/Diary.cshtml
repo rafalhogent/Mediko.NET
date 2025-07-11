@@ -1,0 +1,198 @@
+﻿@model DiaryViewModel
+
+@{
+    ViewData["Title"] = @Model.Logbook.Name;
+}
+
+
+
+
+<div class="row">
+    <div class="h5 col"> @Model.Logbook?.Name logs </div>
+
+</div>
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="col alert alert-info alert-dismissible">
+        @Model.Message
+        @*<button type="button" class="btn-close" aria-label="Close"></button>*@
+    </div>
+
+}
+
+<div class="my-3 forms">
+
+    <form asp-action="AddLog" asp-controller="Logs"
+          method="post" class="row row-cols-auto g-2 align-items-center ">
+        @await Component.InvokeAsync("LogEdit")
+        <div class="col ms-1 mt-3">
+            <button type="submit" class="form-control btn btn-primary d-flex flex-nowrap">
+                <i class="bi bi-plus-circle icon"></i>Toevoegen
+            </button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-responsive table-hover mb-5 ">
+    <thead>
+        <tr>
+            <th style="width: 140px" >Tijd</th>
+            @if (Model?.Logbook?.Field1 != null)
+            {
+                <th class="text-end">@Model.Logbook.Field1</th>
+            }
+            @if (Model?.Logbook?.Field2 != null)
+            {
+                <th class="text-end">@Model.Logbook.Field2</th>
+            }
+            @if (Model?.Logbook?.Field3 != null)
+            {
+                <th class="text-end">@Model.Logbook.Field3</th>
+            }
+            <th>Commentaar</th>
+            <th style="width:62px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+                foreach (var log in Model.UserLogs)
+                {
+                    <tr>
+                        <td style="">@log.LogTime.ToShortDateString() @log.LogTime.ToShortTimeString()</td>
+                        @if (Model?.Logbook?.Field1 != null)
+                        {
+                            <td class="text-end">
+                                @if (!string.IsNullOrEmpty(log.Value1.ToString()))
+                                {
+                                    <b>@log.Value1</b>
+                                    @Model.Logbook.Unit1
+                                }
+                            </td>
+                        }
+                        @if (Model?.Logbook?.Field2 != null)
+                        {
+                            <td class="text-end">
+                                @if (!string.IsNullOrEmpty(log.Value2.ToString()))
+                                {
+                                    <b>@log.Value2</b>
+                                    @Model.Logbook.Unit2
+                                }
+                            </td>
+
+                        }
+                        @if (Model?.Logbook?.Field3 != null)
+                        {
+                            <td class="text-end">
+                                @if (!string.IsNullOrEmpty(log.Value3.ToString()))
+                                {
+                                    <b>@log.Value3</b>
+                                    @Model.Logbook.Unit3
+                                }
+                            </td>
+                        }
+                        <td class="text-break">@log.Comment</td>
+                        <td class="d-flex flex-nowrap ">
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#logEditModal"
+                            data-bs-logid="@log.LogId"
+                            data-bs-time="@log.LogTime"
+                            data-bs-value1="@log.Value1"
+                            data-bs-value2="@log.Value2"
+                            data-bs-value3="@log.Value3"
+                            data-bs-comment="@log.Comment">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+        }
+    </tbody>
+</table>
+
+
+<!-- Modal LogEdit -->
+<div class="modal  fade" id="logEditModal" tabindex="-1" aria-labelledby="logEditModal" aria-hidden="true">
+    <div class=" modal-lg modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header mt-1 mb-1">
+                <p class=" modal-title " id="modalLabel">Wijzig log</p>
+                <button type="button" class="btn-sm" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <form asp-controller="Logs" asp-action="UpdateLog"
+                  method="post" class="row row-cols-auto g-2 align-items-center ">
+                <div class="modal-body forms">
+
+                    @await Component.InvokeAsync("LogEdit")
+                    <input type="hidden" asp-for="NewLog.logId" value="">
+                    <div class="modal-footer mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                        <button type="submit" class="btn btn-outline-danger" id="removeLogBtn" asp-action="DeleteLog" asp-route-logid="">
+                            <i class="bi bi-trash3-fill icon"></i>Verwijderen
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="updateLogBtn">
+                            <i class="bi bi-arrow-up-square icon"></i>Opslaan
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    console.log("Editing script started");
+    const editModal = document.getElementById('logEditModal')
+
+    editModal.addEventListener('show.bs.modal', event => {
+
+        const link = event.relatedTarget
+        const logid = link.getAttribute('data-bs-logid')
+        const time = link.getAttribute('data-bs-time')
+        const value1 = link.getAttribute('data-bs-value1')
+        const value2 = link.getAttribute('data-bs-value2')
+        const value3 = link.getAttribute('data-bs-value3')
+        const comment = link.getAttribute('data-bs-comment')
+        const current = event.currentTarget;
+
+        console.log("collected attributes: \n " + logid + "\n" + time + "\n" + value1 + " ");
+
+        // Update the modal's content.
+        const field1INP = editModal.querySelector('.field1')
+        if (field1INP !== null) { field1INP.value = value1 }
+
+        const field2INP = editModal.querySelector('.field2')
+        if (field2INP !== null) { field2INP.value = value2 }
+
+        const field3INP = editModal.querySelector('.field3')
+        if (field3INP !== null) { field3INP.value = value3 }
+        const commentINP = editModal.querySelector('.field-comment')
+        if (commentINP !== null) { commentINP.value = comment }
+
+        const logIdINP = editModal.querySelector('#NewLog_logId')
+
+        if (logIdINP !== null) {
+            console.log("logid input found OK");
+            logIdINP.value = logid
+            console.log("logid input value:" + logIdINP.value);
+        }
+        else {
+            console.log("logid input not found");
+        }
+
+        const titel = editModal.querySelector('#modalLabel')
+        titel.textContent = `Wijzig Log ` //met id = ${logid}
+        const removeBTN = document.getElementById('removeLogBtn')
+        removeBTN.setAttribute('formaction', '/Logs/DeleteLog?logId=' + logid)
+        //const updateBTN = document.getElementById('updateLogBtn')
+        //updateBTN.setAttribute('formaction', '/Logs/UpdateLog?logId=' + logid)
+
+    })
+</script>
+
+
+
+
+

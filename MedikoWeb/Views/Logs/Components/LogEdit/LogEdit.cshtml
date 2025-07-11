@@ -1,0 +1,53 @@
+﻿@model DiaryViewModel
+
+
+        @Html.HiddenFor(x=>x.NewLog.LogbookId)
+
+        <div class=" col field-date  mt-3 ">
+
+            @Html.TextBoxFor(x=>x.NewLog.DateAndTime, "{0:yyyy-MM-dd HH:mm}",
+            new { @class = "form-control",@type = "datetime-local"} )
+
+        </div>
+
+
+        <div class="col row ">
+            @if (Model?.Logbook?.Field1 != null)
+            {
+                <div class="col field-value mt-3">
+                    <label for="value1" class="visually-hidden">@Model.Logbook.Field1</label>
+                    <input type="text" asp-for="NewLog.Value1" class="form-control field1"
+                       id="value1" placeholder="@Model.Logbook.Field1" value="">
+                </div>
+            }
+
+            @if (Model?.Logbook?.Field2 != null)
+            {
+                <div class="col field-value mt-3">
+                    <label for="value2" class="visually-hidden">@Model.Logbook.Field2</label>
+                    <input type="text" asp-for="NewLog.Value2" class="form-control field2"
+                       id="value2" placeholder="@Model.Logbook.Field2" value="">
+                </div>
+            }
+
+            @if (Model?.Logbook?.Field3 != null)
+            {
+                <div class="col field-value mt-3">
+                    <label for="value3" class="visually-hidden">@Model.Logbook.Field3</label>
+                    <input type="text" asp-for="NewLog.Value3" class="form-control field3"
+                       id="value3" placeholder="@Model.Logbook.Field3" value="">
+                </div>
+            }
+        </div>
+
+        <div class="col row ">
+            <div class="col mt-3">
+                <label for="comment" class="visually-hidden">Commentaar</label>
+                <input type="text" asp-for="NewLog.Comment" class="form-control field-comment "
+                       id="comment" placeholder="Commentaar" value="">
+            </div>
+        </div>
+
+
+
+
