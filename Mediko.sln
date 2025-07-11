@@ -1,13 +1,13 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedikoWeb", "MedikoWeb\MedikoWeb.csproj", "{B4CBD2EE-A1E1-46D7-B714-3EF7934F6F5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedikoWeb", "MedikoWeb\MedikoWeb.csproj", "{B4CBD2EE-A1E1-46D7-B714-3EF7934F6F5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedikoData", "MedikoData\MedikoData.csproj", "{73341A8E-3F5E-4F89-9E44-9BB0DF0E2BAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedikoData", "MedikoData\MedikoData.csproj", "{73341A8E-3F5E-4F89-9E44-9BB0DF0E2BAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedikoServices", "MedikoServices\MedikoServices.csproj", "{0A1D3F79-6129-470C-88A4-A753205F8D66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedikoServices", "MedikoServices\MedikoServices.csproj", "{0A1D3F79-6129-470C-88A4-A753205F8D66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
